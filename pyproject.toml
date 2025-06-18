@@ -1,5 +1,5 @@
 [project]
-name = "puc-mlops"
+name = "puc_mlops"
 version = "0.1.0"
 description = ""
 authors = [
