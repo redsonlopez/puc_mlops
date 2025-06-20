@@ -38,8 +38,12 @@ def read_data():
         X (pandas.DataFrame): The feature matrix of shape (n_samples, n_features).
         y (pandas.Series): The target vector of shape (n_samples,).
     """
-    data = pd.read_csv(
-        'https://raw.githubusercontent.com/renansantosmendes/lectures-cdas-2023/master/fetal_health_reduced.csv')
+    url = 'raw.githubusercontent.com'
+    username = 'renansantosmendes'
+    repository = 'lectures-cdas-2023'
+    file_name = 'fetal_health_reduced.csv'
+    data = pd.read_csv(f'https://{url}/{username}/{repository}/master/{file_name}')
+
     X = data.drop(["fetal_health"], axis=1)
     y = data["fetal_health"]
     return X, y
@@ -121,11 +125,11 @@ def config_mlflow():
     """
     os.environ['MLFLOW_TRACKING_USERNAME'] = 'renansantosmendes'
     os.environ['MLFLOW_TRACKING_PASSWORD'] = '6d730ef4a90b1caf28fbb01e5748f0874fda6077'
-    mlflow.set_tracking_uri('https://dagshub.com/renansantosmendes/mlops-ead-2025.mlflow')
+    mlflow.set_tracking_uri('https://dagshub.com/renansantosmendes/puc_lectures_mlops.mlflow')
 
-    mlflow.keras.autolog(log_models=True,
-                         log_input_examples=True,
-                         log_model_signatures=True)
+    mlflow.tensorflow.autolog(log_models=True,
+                              log_input_examples=True,
+                              log_model_signatures=True)
 
 
 def train_model(model, X_train, y_train, is_train=True):

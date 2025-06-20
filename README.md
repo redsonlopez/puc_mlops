@@ -19,10 +19,12 @@ $ pyenv versions
 $ pyenv local 3.10.18
 $ poetry install
 
+---
 
 • Comandos para o poetry:
 $ poetry new puc_mlops
 $ cd puc_mlops
+
 • Editar o arquivo pyproject.toml com a versão do python "^3.10" e executar o comando:
 $ poetry env use python3.10
 $ source $(poetry env info --path)/bin/activate
