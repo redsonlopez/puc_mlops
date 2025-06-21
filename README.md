@@ -1,3 +1,29 @@
+# PUC MLOps
+
+Projeto acadêmico para deploy de modelo
+
+├── pyproject.toml
+├── requirements.txt
+├── Dockerfile
+├── README.md
+├── environment.yml
+├── pipeline.yml
+├── notebooks/
+│   ├── AutoML_com_AutoKeras.ipynb
+│   ├── DataOps - Data Drift.ipynb
+│   └── ...
+├── src/
+│   └── puc_mlops/
+│       ├── __init__.py
+│       ├── train.py
+│       ├── main.py
+│       └── model.py
+└── tests/
+    ├── __init__.py
+    ├── test_train.py
+    └── desafio_02.ipynb
+
+
 • Instale o pyenv para o gerenciamento de versões do python:
 $ curl -fsSL https://pyenv.run | bash
 
