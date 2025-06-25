@@ -41,3 +41,7 @@ venv/
 .session
 .netrwhist
 tags
+
+# === MLflow ===
+mlruns/
+

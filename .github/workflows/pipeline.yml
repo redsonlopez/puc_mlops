@@ -1,0 +1,94 @@
+name: Train-Pipeline
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+      - layers
+      - branch_01
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - webhook
+
+jobs:
+  unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Run Pytest
+        run: |
+          poetry run pytest -v
+
+  check_code_style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install pycodestyle
+        run: pip install pycodestyle
+
+      - name: Validate Python Code Style
+        run: pycodestyle . --ignore=E501
+
+  train_model:
+    runs-on: ubuntu-latest
+    needs: [unit_tests, check_code_style]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Train model
+        run: |
+          poetry run python src/puc_mlops/train.py
+
+  build_image:
+    runs-on: ubuntu-latest
+    needs: [train_model]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Docker login
+        run: |
+          docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_IMAGE_NAME }}
+
+      - name: Docker push
+        run: docker push ${{ secrets.DOCKER_USER }}/${{ secrets.DOCKER_IMAGE_NAME }}
+

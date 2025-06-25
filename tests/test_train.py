@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 from sklearn.base import ClassifierMixin
-from train import (
+from puc_mlops.train import (
     read_data,
     create_model,
     train_model
