@@ -56,6 +56,7 @@ def config_mlflow():
 def train_model(model, X_train, y_train, is_train=True):
     with mlflow.start_run(run_name='experiment_puc_mlops') as run:
         model.fit(X_train, y_train)
+        print(f"Run ID: {run.info.run_id}")
         #if is_train:
             #run_uri = f'runs:/{run.info.run_id}'
             #mlflow.register_model(run_uri, 'fetal_health')
