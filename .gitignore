@@ -1,0 +1,46 @@
+# === NOTEBOOKS ===
+**/.ipynb_checkpoints
+*.ipynb~
+*.nbconvert.ipynb
+# Jupyter Lab
+.jupyter/lab/workspaces/
+
+# === PYTHON ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+
+# === TESTING AND COVERAGE ===
+.coverage
+htmlcov/
+.tox/
+.nox/
+.cache/
+pytest_cache/
+
+# === VENV ===
+.venv/
+venv/
+
+# === VS CODE ===
+.vscode/
+
+# === VIM / NEOVIM ===
+*.swp
+*.swo
+*.un~
+.session
+.netrwhist
+tags
+
+# === MLflow ===
+mlruns/
