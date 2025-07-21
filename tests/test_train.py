@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, InputLayer
 
-from train import (reset_seeds,
+from src.puc_mlops.train import (reset_seeds,
                    read_data,
                    process_data,
                    create_model,
